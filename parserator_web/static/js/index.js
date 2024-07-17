@@ -1,12 +1,14 @@
 /* TODO: Flesh this out to connect the form to the API and render results
    in the #address-results div. */
 
+// Adding event listeners
    document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("address-form");
   
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
-  
+    
+    //   Declaring variables
       const address = document.getElementById("address").value;
       const url = "/api/parse/";
       const queryParams = new URLSearchParams({ address: address });
@@ -16,10 +18,10 @@
           method: 'GET'
         });
   
-        const respData = await response.json();
+        const content = await response.json();
   
         if (!response.ok) {
-          throw new Error(respData.detail || 'An error occurred');
+          throw new Error(content.detail || 'An error occured during execution');
         }
   
         displayResults(respData);
