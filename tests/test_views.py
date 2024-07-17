@@ -28,12 +28,9 @@ def test_api_parse_succeeds(client):
     address_type = response.json()["address_type"]
     components = response.json()["address_components"]
 
-    assert response.status == HTTPStatus.OK
+    assert response.status_code == HTTPStatus.OK
     assert address_type == correct_address_type
     assert components == correct_answer
-
-
-    pytest.fail()
 
 
 def test_api_parse_raises_error(client):
@@ -42,8 +39,6 @@ def test_api_parse_raises_error(client):
     """
 
     address_string = '123 main st chicago il 123 main st'
-
-    correct_address_type = "Street Address"
 
     payload = {
         "address": address_string
@@ -54,8 +49,6 @@ def test_api_parse_raises_error(client):
     address_type = response.json()["address_type"]
     error = response.json()["error"]
 
-    assert response.status == HTTPStatus.BAD_REQUEST
-    assert address_type is None
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert address_type == ''
     assert error is not None
-
-    pytest.fail()
