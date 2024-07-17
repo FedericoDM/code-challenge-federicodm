@@ -42,4 +42,20 @@ def test_api_parse_raises_error(client):
     """
 
     address_string = '123 main st chicago il 123 main st'
+
+    correct_address_type = "Street Address"
+
+    payload = {
+        "address": address_string
+    }
+
+    # Invoking API and getting response contents
+    response = client.get(PARSE_API, payload)
+    address_type = response.json()["address_type"]
+    error = response.json()["error"]
+
+    assert response.status == HTTPStatus.BAD_REQUEST
+    assert address_type is None
+    assert error is not None
+
     pytest.fail()
