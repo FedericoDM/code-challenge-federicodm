@@ -24,7 +24,7 @@
           throw new Error(content.detail || 'An error occured during execution');
         }
   
-        displayResults(respData);
+        displayResults(content);
       } catch (error) {
         displayError(error.message);
       }
