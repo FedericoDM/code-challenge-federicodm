@@ -30,7 +30,6 @@ class AddressParse(APIView):
                     "address_components": parsed_address,
                     "address_type": address_type,
                 },
-                status=HTTPStatus.OK,
             )
 
         except usaddress.RepeatedLabelError:
@@ -65,6 +64,8 @@ class AddressParse(APIView):
                 },
                 status=HTTPStatus.INTERNAL_SERVER_ERROR,
             )
+
+        return response
 
     def parse(self, address):
         """

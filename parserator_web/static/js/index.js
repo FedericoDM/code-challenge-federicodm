@@ -21,7 +21,7 @@
         const contentData = await response.json();
   
         if (!response.ok) {
-          throw new Error(contentData.detail || 'An error occured during execution');
+          throw new Error(contentData.detail || contentData.error);
         }
   
         displayResults(contentData);
