@@ -18,19 +18,21 @@
           method: 'GET'
         });
   
-        const content = await response.json();
+        const contentData = await response.json();
   
         if (!response.ok) {
-          throw new Error(content.detail || 'An error occured during execution');
+          throw new Error(contentData.detail || 'An error occured during execution');
         }
   
-        displayResults(content);
+        displayResults(contentData);
       } catch (error) {
+        console.error('Error:', error.message); // Log error for debugging
         displayError(error.message);
       }
     });
   
     function displayResults(data) {
+      console.log('Displaying results'); // Debug log
       document.getElementById("error-results").style.display = "none";
       const resultsDiv = document.getElementById("address-results");
       resultsDiv.style.display = "block";
@@ -39,7 +41,8 @@
   
       const tableBody = document.querySelector("#address-results-table tbody");
       tableBody.innerHTML = '';
-  
+    
+    // Creating table
       for (const [key, value] of Object.entries(data.address_components)) {
         const row = document.createElement("tr");
         const partCell = document.createElement("td");
@@ -50,14 +53,17 @@
   
         row.appendChild(partCell);
         row.appendChild(tagCell);
+
         tableBody.appendChild(row);
       }
     }
   
     function displayError(errorMessage) {
       document.getElementById("address-results").style.display = "none";
+
       const errorDiv = document.getElementById("error-results");
       errorDiv.style.display = "block";
+      
       document.getElementById("parse-error").textContent = errorMessage;
     }
   });
