@@ -38,13 +38,14 @@ class AddressParse(APIView):
         if not address:
             raise ParseError("Address can not be empty")
         
+        # Catch error and raise it as ParseError
         try:
             parsed_address = usaddress.parse(address)
             address_type = usaddress.tag(address)
 
         except Exception as error:
-            print(f"Error parsing address: {error}")
-            return {}, "ERROR"
+            raise ParseError(error)
+
 
         address_components = {}
         
