@@ -21,7 +21,7 @@ class AddressParse(APIView):
         # TODO: Flesh out this method to parse an address string using the
         # parse() method and return the parsed components to the frontend.
         
-        address = request.GET("address", "")
+        address = request.GET.get("address")
         parsed_address, address_type = self.parse(address)
         
         return Response({"input_string": address,
