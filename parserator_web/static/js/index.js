@@ -26,13 +26,11 @@
   
         displayResults(contentData);
       } catch (error) {
-        console.error('Error:', error.message); // Log error for debugging
         displayError(error.message);
       }
     });
   
     function displayResults(data) {
-      console.log('Displaying results'); // Debug log
       document.getElementById("error-results").style.display = "none";
       var resultsDiv = document.getElementById("address-results");
       resultsDiv.style.display = "block";
