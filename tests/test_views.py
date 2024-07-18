@@ -1,27 +1,26 @@
-import pytest
+""""""
+
 from http import HTTPStatus
 
 PARSE_API = "/api/parse/"
+
 
 def test_api_parse_succeeds(client):
     """
     Tests the API by sending an address
     """
-    address_string = '123 main st chicago il'
+    address_string = "123 main st chicago il"
     correct_answer = {
         "AddressNumber": "123",
         "StreetName": "main",
         "StreetNamePostType": "st",
         "PlaceName": "chicago",
-        "StateName": "il"
-
+        "StateName": "il",
     }
 
     correct_address_type = "Street Address"
 
-    payload = {
-        "address": address_string
-    }
+    payload = {"address": address_string}
 
     # Invoking API and getting response contents
     response = client.get(PARSE_API, payload)
@@ -38,11 +37,9 @@ def test_api_parse_raises_error(client):
     Verify API raises an error
     """
 
-    address_string = '123 main st chicago il 123 main st'
+    address_string = "123 main st chicago il 123 main st"
 
-    payload = {
-        "address": address_string
-    }
+    payload = {"address": address_string}
 
     # Invoking API and getting response contents
     response = client.get(PARSE_API, payload)
@@ -50,5 +47,5 @@ def test_api_parse_raises_error(client):
     error = response.json()["error"]
 
     assert response.status_code == HTTPStatus.BAD_REQUEST
-    assert address_type == ''
+    assert address_type == ""
     assert error is not None

@@ -3,22 +3,22 @@
 
 // Adding event listeners
    document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("address-form");
+    var form = document.getElementById("address-form");
   
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
     
     //   Declaring variables
-      const address = document.getElementById("address").value;
-      const url = "/api/parse/";
-      const queryParams = new URLSearchParams({ address: address });
+      var address = document.getElementById("address").value;
+      var url = "/api/parse/";
+      var queryParams = new URLSearchParams({ address: address });
   
       try {
-        const response = await fetch(`${url}?${queryParams}`, {
+        var response = await fetch(`${url}?${queryParams}`, {
           method: 'GET'
         });
   
-        const contentData = await response.json();
+        var contentData = await response.json();
   
         if (!response.ok) {
           throw new Error(contentData.detail || contentData.error);
@@ -34,19 +34,19 @@
     function displayResults(data) {
       console.log('Displaying results'); // Debug log
       document.getElementById("error-results").style.display = "none";
-      const resultsDiv = document.getElementById("address-results");
+      var resultsDiv = document.getElementById("address-results");
       resultsDiv.style.display = "block";
   
       document.getElementById("parse-type").textContent = data.address_type;
   
-      const tableBody = document.querySelector("#address-results-table tbody");
+      var tableBody = document.querySelector("#address-results-table tbody");
       tableBody.innerHTML = '';
     
     // Creating table
-      for (const [key, value] of Object.entries(data.address_components)) {
-        const row = document.createElement("tr");
-        const partCell = document.createElement("td");
-        const tagCell = document.createElement("td");
+      for (var [key, value] of Object.entries(data.address_components)) {
+        var row = document.createElement("tr");
+        var partCell = document.createElement("td");
+        var tagCell = document.createElement("td");
   
         partCell.textContent = key;
         tagCell.textContent = value;
@@ -61,7 +61,7 @@
     function displayError(errorMessage) {
       document.getElementById("address-results").style.display = "none";
 
-      const errorDiv = document.getElementById("error-results");
+      var errorDiv = document.getElementById("error-results");
       errorDiv.style.display = "block";
       
       document.getElementById("parse-error").textContent = errorMessage;
